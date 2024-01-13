@@ -76,7 +76,7 @@ const order_bill_to_pay_list = async (  ) => {
 
         let result = await db.query(`SELECT order_bill.id, order_bill.customer_name, order_bill.email, order_bill.phone, order_bill.address, CAST((SELECT SUM(order_item.qty * order_item.price) FROM order_item WHERE order_item.order_id = order_bill.id) AS DOUBLE) as total_price, CAST((SELECT SUM(amount) FROM order_payment WHERE order_payment.order_id = order_bill.id) AS DOUBLE) as paid_amount
         FROM order_bill
-        WHERE order_bill.status != ? && CAST((SELECT SUM(order_item.qty * order_item.price) FROM order_item WHERE order_item.order_id = order_bill.id) AS DOUBLE) > CAST((SELECT SUM(amount) FROM order_payment WHERE order_payment.order_id = order_bill.id) AS DOUBLE) ORDER BY order_bill.id DESC`, [ 403]);
+        WHERE order_bill.status != 403 && (CAST((SELECT SUM(order_item.qty * order_item.price) FROM order_item WHERE order_item.order_id = order_bill.id) AS DOUBLE) > CAST((SELECT SUM(amount) FROM order_payment WHERE order_payment.order_id = order_bill.id) AS DOUBLE) || CAST((SELECT SUM(amount) FROM order_payment WHERE order_payment.order_id = order_bill.id) AS DOUBLE) IS NULL) ORDER BY order_bill.id DESC`, []);
         return result;
 
     } catch ( err ) {
