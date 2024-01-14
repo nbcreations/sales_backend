@@ -25,5 +25,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: yarn build
     - run: pm2 restart sales_backend
