@@ -51,7 +51,7 @@ const image = multer({
             file: Express.Multer.File,
             cb: (error: any, key: string) => void
         ) {
-            cb(null, `images/${file.originalname}`);
+            cb(null, `images/${file.originalname}-${Date.now()}-${path.extname(file.originalname).toLowerCase()}`);
         },
     }),
     fileFilter: function (
