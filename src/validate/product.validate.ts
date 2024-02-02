@@ -28,6 +28,18 @@ const product_add = joi.object({
         .custom((value, helper) => {return xssPrevent(value);})
         .required()
     ,
+    color: joi.string()
+        .min(1)
+        .max(100)
+        .custom((value, helper) => {return xssPrevent(value);})
+        .required()
+    ,
+    size: joi.string()
+        .min(1)
+        .max(100)
+        .custom((value, helper) => {return xssPrevent(value);})
+        .required()
+    ,
     stock: joi.number()
         .min(1)
         .max(2147483647)
@@ -83,6 +95,18 @@ const product_edit = joi.object({
         .min(1)
         .max(500)
         .label("name")
+        .custom((value, helper) => {return xssPrevent(value);})
+        .required()
+    ,
+    color: joi.string()
+        .min(1)
+        .max(100)
+        .custom((value, helper) => {return xssPrevent(value);})
+        .required()
+    ,
+    size: joi.string()
+        .min(1)
+        .max(100)
         .custom((value, helper) => {return xssPrevent(value);})
         .required()
     ,

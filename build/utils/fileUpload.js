@@ -79,7 +79,7 @@ var image = (0, multer_1.default)({
         s3: s3Client(),
         bucket: 'nbc-storage',
         key: function (_req, file, cb) {
-            cb(null, "images/".concat(file.originalname));
+            cb(null, "images/".concat(file.originalname, "-").concat(Date.now(), "-").concat(path_1.default.extname(file.originalname).toLowerCase()));
         },
     }),
     fileFilter: function (_req, file, cb) {

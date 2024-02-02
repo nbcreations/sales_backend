@@ -11,6 +11,8 @@ export interface product_type_list_data {
 }
 export interface product_add_data {
     name: string;
+    size: string;
+    color: string;
     stock: number;
     price: number;
     type: number;
@@ -21,6 +23,8 @@ export interface product_add_data {
 }
 export interface product_add_data {
     name: string;
+    size: string;
+    color: string;
     stock: number;
     price: number;
     productId: string;
@@ -32,6 +36,8 @@ export interface product_add_data {
 }
 export interface product_edit_data {
     id: number;
+    size: string;
+    color: string;
     name: string;
     stock: number;
     price: number;

@@ -11,13 +11,13 @@ import { DateTime } from 'luxon';
 
 
 
-const product_add = async (name: string, stock: number, price: number, productId: string, type: number, category: number, subCategory: number, authUserId: number) => {
+const product_add = async (name: string, stock: number, price: number, productId: string, type: number, category: number, subCategory: number, authUserId: number, color: string, size: string) => {
 
     try {
 
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
-        let result = await db.query('INSERT INTO `product`(name, stock, price, product_id, type, category, sub_category, status, added_by, added_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, stock, price, productId, type, category, subCategory, 1, authUserId, currentDateTime]);
+        let result = await db.query('INSERT INTO `product`(name, stock, price, product_id, type, category, sub_category, status, added_by, added_time, color, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, stock, price, productId, type, category, subCategory, 1, authUserId, currentDateTime, color, size ]);
 
         if (result.status) {
             return DefaultResponse.successFormat("200", {
@@ -40,6 +40,8 @@ const product_list = async () => {
             SELECT 
                 product.id, 
                 product.name, 
+                product.color, 
+                product.size, 
                 product.stock, 
                 product.price, 
                 product.product_id, 
@@ -78,13 +80,13 @@ const product_list = async () => {
 
 };
 
-const product_edit = async (name: string, stock: number, price: number, productId: string, type: number, category: number, subCategory: number, authUserId: number, id: number) => {
+const product_edit = async (name: string, stock: number, price: number, productId: string, type: number, category: number, subCategory: number, authUserId: number, id: number, color: string, size: string) => {
 
     try {
 
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
-        let result = await db.query('UPDATE `product` SET name = ?, stock = ?, price = ?, product_id = ?, type = ?, category = ?, sub_category = ?, updated_by = ?, updated_time = ? WHERE id = ? && status != ? ', [name, stock, price, productId, type, category, subCategory, authUserId, currentDateTime, id, 403]);
+        let result = await db.query('UPDATE `product` SET name = ?, stock = ?, price = ?, product_id = ?, type = ?, category = ?, sub_category = ?, updated_by = ?, updated_time = ?, color = ?, size = ? WHERE id = ? && status != ? ', [name, stock, price, productId, type, category, subCategory, authUserId, currentDateTime, color, size, id, 403]);
 
         if (result.status) {
             return DefaultResponse.successFormat("200");
@@ -102,7 +104,9 @@ const product_view = async (id: number) => {
 
     try {
 
-        let result = await db.query(`SELECT product.id, product.name, product.stock, product.price, product.product_id, product.type, product.category, product.sub_category, product.status, product.added_by, product.added_time, product.updated_by, product.updated_time
+        let result = await db.query(`SELECT product.id,
+        product.color, 
+        product.size, product.name, product.stock, product.price, product.product_id, product.type, product.category, product.sub_category, product.status, product.added_by, product.added_time, product.updated_by, product.updated_time
         FROM product
         WHERE product.id = ? && product.status != ? `, [id, 403]);
         if (!result.status) {

@@ -46,7 +46,7 @@ const product_add = async ( data: product_add_data ) => {
     try {
 
         let result;
-        result = await product.product_add( data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId );
+        result = await product.product_add( data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.color, data.size );
         return result;
 
     } catch (err) {
@@ -60,7 +60,7 @@ const product_edit = async ( data: product_edit_data ) => {
     try {
 
         let result;
-        result = await product.product_edit( data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.id );
+        result = await product.product_edit( data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.id, data.color, data.size );
         return result;
 
     } catch (err) {
