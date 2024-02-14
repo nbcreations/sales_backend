@@ -14,6 +14,16 @@ var product_add = joi_1.default.object({
         .label("name")
         .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
         .required(),
+    color: joi_1.default.string()
+        .min(1)
+        .max(100)
+        .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
+        .required(),
+    size: joi_1.default.string()
+        .min(1)
+        .max(100)
+        .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
+        .required(),
     stock: joi_1.default.number()
         .min(1)
         .max(2147483647)
@@ -59,6 +69,16 @@ var product_edit = joi_1.default.object({
         .min(1)
         .max(500)
         .label("name")
+        .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
+        .required(),
+    color: joi_1.default.string()
+        .min(1)
+        .max(100)
+        .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
+        .required(),
+    size: joi_1.default.string()
+        .min(1)
+        .max(100)
         .custom(function (value, helper) { return (0, commonValidation_1.xssPrevent)(value); })
         .required(),
     stock: joi_1.default.number()

@@ -89,7 +89,7 @@ var product_add = function (data) { return __awaiter(void 0, void 0, void 0, fun
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 result = void 0;
-                return [4 /*yield*/, product_model_1.default.product_add(data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId)];
+                return [4 /*yield*/, product_model_1.default.product_add(data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.color, data.size)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, result];
@@ -108,7 +108,7 @@ var product_edit = function (data) { return __awaiter(void 0, void 0, void 0, fu
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 result = void 0;
-                return [4 /*yield*/, product_model_1.default.product_edit(data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.id)];
+                return [4 /*yield*/, product_model_1.default.product_edit(data.name, data.stock, data.price, data.productId, data.type, data.category, data.subCategory, data.authUserId, data.id, data.color, data.size)];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, result];

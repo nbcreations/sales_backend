@@ -43,14 +43,14 @@ var db_1 = __importDefault(require("../config/db"));
 var logger_1 = __importDefault(require("../config/logger"));
 var DefaultResponse_1 = __importDefault(require("../utils/DefaultResponse"));
 var luxon_1 = require("luxon");
-var product_add = function (name, stock, price, productId, type, category, subCategory, authUserId) { return __awaiter(void 0, void 0, void 0, function () {
+var product_add = function (name, stock, price, productId, type, category, subCategory, authUserId, color, size) { return __awaiter(void 0, void 0, void 0, function () {
     var currentDateTime, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 currentDateTime = luxon_1.DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
-                return [4 /*yield*/, db_1.default.query('INSERT INTO `product`(name, stock, price, product_id, type, category, sub_category, status, added_by, added_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, stock, price, productId, type, category, subCategory, 1, authUserId, currentDateTime])];
+                return [4 /*yield*/, db_1.default.query('INSERT INTO `product`(name, stock, price, product_id, type, category, sub_category, status, added_by, added_time, color, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, stock, price, productId, type, category, subCategory, 1, authUserId, currentDateTime, color, size])];
             case 1:
                 result = _a.sent();
                 if (result.status) {
@@ -73,7 +73,7 @@ var product_list = function () { return __awaiter(void 0, void 0, void 0, functi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db_1.default.query("\n            SELECT \n                product.id, \n                product.name, \n                product.stock, \n                product.price, \n                product.product_id, \n                product.type, \n                product.category, \n                product.sub_category, \n                product.status, \n                product.added_by, \n                product.added_time, \n                product.updated_by, \n                product.updated_time,\n                product_type.name AS type_name, \n                product_category.name AS category_name, \n                product_sub_category.name AS sub_category_name\n            FROM \n                product\n            INNER JOIN \n                product_type ON product.type = product_type.id\n            INNER JOIN \n                product_category ON product.category = product_category.id\n            INNER JOIN \n                product_sub_category ON product.sub_category = product_sub_category.id\n            WHERE \n                product.status != ?  \n            ORDER BY \n                product.id DESC\n        ", [403])];
+                return [4 /*yield*/, db_1.default.query("\n            SELECT \n                product.id, \n                product.name, \n                product.color, \n                product.size, \n                product.stock, \n                product.price, \n                product.product_id, \n                product.type, \n                product.category, \n                product.sub_category, \n                product.status, \n                product.added_by, \n                product.added_time, \n                product.updated_by, \n                product.updated_time,\n                product_type.name AS type_name, \n                product_category.name AS category_name, \n                product_sub_category.name AS sub_category_name\n            FROM \n                product\n            INNER JOIN \n                product_type ON product.type = product_type.id\n            INNER JOIN \n                product_category ON product.category = product_category.id\n            INNER JOIN \n                product_sub_category ON product.sub_category = product_sub_category.id\n            WHERE \n                product.status != ?  \n            ORDER BY \n                product.id DESC\n        ", [403])];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, result];
@@ -85,14 +85,14 @@ var product_list = function () { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
-var product_edit = function (name, stock, price, productId, type, category, subCategory, authUserId, id) { return __awaiter(void 0, void 0, void 0, function () {
+var product_edit = function (name, stock, price, productId, type, category, subCategory, authUserId, id, color, size) { return __awaiter(void 0, void 0, void 0, function () {
     var currentDateTime, result, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 currentDateTime = luxon_1.DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
-                return [4 /*yield*/, db_1.default.query('UPDATE `product` SET name = ?, stock = ?, price = ?, product_id = ?, type = ?, category = ?, sub_category = ?, updated_by = ?, updated_time = ? WHERE id = ? && status != ? ', [name, stock, price, productId, type, category, subCategory, authUserId, currentDateTime, id, 403])];
+                return [4 /*yield*/, db_1.default.query('UPDATE `product` SET name = ?, stock = ?, price = ?, product_id = ?, type = ?, category = ?, sub_category = ?, updated_by = ?, updated_time = ?, color = ?, size = ? WHERE id = ? && status != ? ', [name, stock, price, productId, type, category, subCategory, authUserId, currentDateTime, color, size, id, 403])];
             case 1:
                 result = _a.sent();
                 if (result.status) {
@@ -113,7 +113,7 @@ var product_view = function (id) { return __awaiter(void 0, void 0, void 0, func
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db_1.default.query("SELECT product.id, product.name, product.stock, product.price, product.product_id, product.type, product.category, product.sub_category, product.status, product.added_by, product.added_time, product.updated_by, product.updated_time\n        FROM product\n        WHERE product.id = ? && product.status != ? ", [id, 403])];
+                return [4 /*yield*/, db_1.default.query("SELECT product.id,\n        product.color, \n        product.size, product.name, product.stock, product.price, product.product_id, product.type, product.category, product.sub_category, product.status, product.added_by, product.added_time, product.updated_by, product.updated_time\n        FROM product\n        WHERE product.id = ? && product.status != ? ", [id, 403])];
             case 1:
                 result = _a.sent();
                 if (!result.status) {
